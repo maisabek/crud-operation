@@ -1,0 +1,58 @@
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-12">
+            <div class="w-100">
+                <button class="btn btn-success mt-3" (click)="openModal()">AddStudent</button>
+                <app-modal #modal [modalConfig]="ModalConfig" (data)="itemsValue = $event">
+                    <div class="btn">
+                        <button class="btn btn-success" (click)="addStudent();close()">save</button>
+                        <button class="btn btn-danger mx-2" (click)="close()">cancel</button>
+                    </div>
+                </app-modal>
+            </div>
+            <div class=" w-100 mt-3 ">
+                <div>
+                    <label>Filter With Courses</label>
+                    <br>
+
+                    <select class="w-75 p-1" (change)="updatestudentsByCourses()" name="selectedCourse" [(ngModel)]="selectedCourse">
+                    <option *ngFor="let course of courses" [value]="course">
+                        {{course}}
+                    </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <ng-container *ngFor="let item of filterStudents;">
+
+            <div class="col-md-2 card mt-3 ">
+                <img [src]="item.avatar " alt=" ">
+                <button class="text-center mt-2 btn" (click)="openEditModal();id=item.id">{{item.name}}</button>
+
+                <button class="btn btn-danger mb-3" (click)="openDialog(delete) ">Delete</button>
+                <ng-template #delete>
+                    <div class="row ">
+                        <div class="col-md-12 ">
+                            <h3>Delete Student
+                            </h3>
+                            <p>Are You Sure You Want To Delete ?</p>
+                            <button class="col-md-5 btn btn-danger mt-3 mb-3 " (click)="deleteStudent(item.id);closeDailog() ">Yes</button>
+                            <button class="col-md-5 mx-2 btn btn-secondary mt-3 mb-3 " (click)="closeDailog() ">No</button>
+                        </div>
+                    </div>
+                </ng-template>
+            </div>
+        </ng-container>
+        <app-modal #Editmodal [modalConfig]="ModalConfigEdit" (EditData)="itemsEditValue = $event">
+            <div class="btn">
+                <button class="btn btn-success" (click)="EditStudent(id);closeEditModal()">Edit</button>
+                <button class="btn btn-danger mx-2" (click)="closeEditModal()">cancel</button>
+            </div>
+        </app-modal>
+        <div class="w-100 ">
+            <i class="fa fa-spinner mt-5 text-center text-dark-blue fa-spin fa-2x " *ngIf="isLoading " aria-hidden="true "></i>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,49 @@
+<ng-template #modal>
+    <div class="modal-header">
+        <h3 class="modal-title">{{ modalConfig.modalTitle }}</h3>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div class="col-md-12">
+                <form [formGroup]="buildForm">
+                    <div class="row">
+                        <div class="col-md-6" *ngIf="modalConfig.modal == 'students'">
+                            <mat-form-field class="w-100">
+                                <mat-label>Name*</mat-label>
+                                <input type="text" matInput formControlName="name">
+                                <span *ngIf="buildForm.controls.name.invalid && buildForm.controls.name.touched && buildForm.controls.name.dirty">
+                                  <span class="text-danger" *ngIf="buildForm.controls.name.errors.required">required</span>
+                                </span>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-6" *ngIf="modalConfig.modal == 'students'">
+                            <mat-form-field class="w-100">
+                                <mat-label>Grade*</mat-label>
+                                <input type="number" matInput formControlName="grade">
+                                <span *ngIf="buildForm.controls.grade.invalid && buildForm.controls.grade.touched && buildForm.controls.grade.dirty">
+                                  <span class="text-danger" *ngIf="buildForm.controls.grade.errors.required">required</span>
+                                </span>
+                            </mat-form-field>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Course*</label>
+                            <br>
+                            <select formControlName="CourseName" class="w-100 border-1 p-1" name="CourseName">
+                            <option *ngFor="let course of coursesModal" [value]="course">
+                                {{course}}
+                            </option>
+                        </select>
+                            <span *ngIf="buildForm.controls.CourseName.invalid && buildForm.controls.CourseName.touched && buildForm.controls.CourseName.dirty">
+                          <span class="text-danger" *ngIf="buildForm.controls.CourseName.errors.required">required</span>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+
+        <ng-content select=".btn"></ng-content>
+    </div>
+</ng-template>
