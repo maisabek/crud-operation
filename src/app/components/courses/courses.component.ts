@@ -12,41 +12,20 @@ export class CoursesComponent implements OnInit {
 
   selectedCourse:any;
   courses:any=["allCourses","html","css","javascript","angular"];
-  // allCourses:any;
-  // isLoading:boolean=true;
-  // filterCourses:any
+  
   constructor(public courseService:CoursesServiceService,private MatDailog:MatDialog) { }
   itemsValue:any;
   itemsEditValue:any;
   ngOnInit(): void {
     this.courseService.getallCourses()
   }
-  // getallCourses(){
-  //  this.courseService.getCourses().subscribe((res)=>{
-  //    this.allCourses=res;
-  //    this.filterCourses=res;
-  //    this.isLoading=false
-  //  })
-  // }
+
   deleteStudent(id:any){
    this.courseService.delete(id).subscribe(()=>{
     this.courseService.getallCourses()
    })
   }
-  // addCourse(){
-  //   this.courseService.add(this.itemsValue).subscribe((res)=>{
-  //     console.log("res =",res)
 
-  //     this.getallCourses()
-  //   })
-  // }
-  // EditStudent(id:any){
-  //   console.log("id = ",id)
-  //  this.courseService.edit(this.itemsValue,id).subscribe((res)=>{
-  //   console.log("res =",res)
-  //   this.courseService.getallCourses()
-  //  })
-  // }
 
   openDialog(templateRef:TemplateRef<any>){
     this.MatDailog.open(templateRef)
