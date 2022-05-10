@@ -17,7 +17,7 @@ export class ModalComponent implements OnInit {
   @Output() public EditData:EventEmitter<any> = new EventEmitter<any>()
   @Input() public ItemId:any;
   @Input() public CourseId:any;
-   
+
   @ViewChild('modal') private modalContent: any
   private modalRef: any
    studentId:any
@@ -32,49 +32,38 @@ export class ModalComponent implements OnInit {
       CourseName:new FormControl('',[Validators.required])
     })
    }
- 
+
 
   ngOnInit(): void {
-    // if(this.modalConfig.type == 'EditStudent' && this.ItemId != undefined){
-    //   this.getStudentById(this.ItemId)
-      
-    // }
+
   }
   addStudent(){
     this.studentService.add(this.buildForm.value).subscribe((res)=>{
+      this.buildForm.reset()
      this.studentService.getAllStudents()
     })
   }
   EditStudent(){
    this.studentService.edit(this.buildForm.value,this.ItemId).subscribe((res)=>{
+    this.buildForm.reset()
     this.studentService.getAllStudents()
    })
   }
   StudentData:any
-  // getStudentById(id:any){
-  //  this.studentService.getStudentById(id).subscribe((res)=>{
-  //   this.buildForm.setValue({
-  //     name:res.name,
-  //     grade:res.grade,
-  //     CourseName:res.CourseName
-  //   })
-       
-  //  })
-  // }
+
   addCourse(){
     this.courseService.add(this.buildForm.value).subscribe((res)=>{
+      this.buildForm.reset()
       this.courseService.getallCourses()
     })
   }
   EditCourse(){
    this.courseService.edit(this.buildForm.value,this.CourseId).subscribe((res)=>{
+    this.buildForm.reset()
     this.courseService.getallCourses()
    })
   }
-  // ngAfterViewInit(){
-  //   this.data.emit(this.buildForm.value);
-  //   this.EditData.emit(this.buildForm.value)
-  //    }
+
 
   open(){
     this.modalRef = this.modalService.open(this.modalContent)
