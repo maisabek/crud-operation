@@ -33,15 +33,12 @@ export class ModalComponent implements OnInit {
     })
    }
  
-  ngOnChanges(changes:SimpleChanges){
-   console.log("this.changes = ",changes)
-   this.studentId=this.ItemId
-  }
+
   ngOnInit(): void {
-    if(this.modalConfig.type == 'EditStudent' && this.ItemId != undefined){
-      this.getStudentById(this.ItemId)
+    // if(this.modalConfig.type == 'EditStudent' && this.ItemId != undefined){
+    //   this.getStudentById(this.ItemId)
       
-    }
+    // }
   }
   addStudent(){
     this.studentService.add(this.buildForm.value).subscribe((res)=>{
@@ -54,16 +51,16 @@ export class ModalComponent implements OnInit {
    })
   }
   StudentData:any
-  getStudentById(id:any){
-   this.studentService.getStudentById(id).subscribe((res)=>{
-    this.buildForm.setValue({
-      name:res.name,
-      grade:res.grade,
-      CourseName:res.CourseName
-    })
+  // getStudentById(id:any){
+  //  this.studentService.getStudentById(id).subscribe((res)=>{
+  //   this.buildForm.setValue({
+  //     name:res.name,
+  //     grade:res.grade,
+  //     CourseName:res.CourseName
+  //   })
        
-   })
-  }
+  //  })
+  // }
   addCourse(){
     this.courseService.add(this.buildForm.value).subscribe((res)=>{
       this.courseService.getallCourses()
