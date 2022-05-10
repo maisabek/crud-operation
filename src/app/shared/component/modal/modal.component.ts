@@ -1,5 +1,5 @@
 
-import { Component, Injectable, Input, OnInit, Output, TemplateRef, ViewChild,EventEmitter, ContentChild } from '@angular/core'
+import { Component, Injectable, Input, OnInit, Output, SimpleChanges, ViewChild,EventEmitter, ContentChild } from '@angular/core'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap'
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { StudentsServiceService } from 'src/app/services/Students/students-service.service';
@@ -17,10 +17,10 @@ export class ModalComponent implements OnInit {
   @Output() public EditData:EventEmitter<any> = new EventEmitter<any>()
   @Input() public ItemId:any;
   @Input() public CourseId:any;
-
+   
   @ViewChild('modal') private modalContent: any
   private modalRef: any
-
+   studentId:any
   coursesModal:any=["html","css","javascript","angular"]
   buildForm:any
   constructor(private modalService: NgbModal,
@@ -32,11 +32,19 @@ export class ModalComponent implements OnInit {
       CourseName:new FormControl('',[Validators.required])
     })
    }
-
-  ngOnInit(): void {}
+ 
+  ngOnChanges(changes:SimpleChanges){
+   console.log("this.changes = ",changes)
+   this.studentId=this.ItemId
+  }
+  ngOnInit(): void {
+    if(this.modalConfig.type == 'EditStudent' && this.ItemId != undefined){
+      this.getStudentById(this.ItemId)
+      
+    }
+  }
   addStudent(){
     this.studentService.add(this.buildForm.value).subscribe((res)=>{
-      console.log("res =",res)
      this.studentService.getAllStudents()
     })
   }
@@ -45,10 +53,19 @@ export class ModalComponent implements OnInit {
     this.studentService.getAllStudents()
    })
   }
+  StudentData:any
+  getStudentById(id:any){
+   this.studentService.getStudentById(id).subscribe((res)=>{
+    this.buildForm.setValue({
+      name:res.name,
+      grade:res.grade,
+      CourseName:res.CourseName
+    })
+       
+   })
+  }
   addCourse(){
     this.courseService.add(this.buildForm.value).subscribe((res)=>{
-      console.log("res =",res)
-
       this.courseService.getallCourses()
     })
   }
@@ -57,12 +74,12 @@ export class ModalComponent implements OnInit {
     this.courseService.getallCourses()
    })
   }
-  ngAfterContentChecked(){
-    this.data.emit(this.buildForm.value);
-    this.EditData.emit(this.buildForm.value)
-  }
+  // ngAfterViewInit(){
+  //   this.data.emit(this.buildForm.value);
+  //   this.EditData.emit(this.buildForm.value)
+  //    }
 
-  open() {
+  open(){
     this.modalRef = this.modalService.open(this.modalContent)
     this.modalRef.result.then()
   }

@@ -23,7 +23,7 @@
         </div>
         <ng-container *ngFor="let item of courseService.filterCourses;">
 
-            <div class="col-md-2 card mt-3 ">
+            <div class="col-md-3 col-lg-2 card mt-3 ">
                 <img src="assets/img/1.jpg" alt=" ">
                 <button class="text-center mt-2 btn h-25" (click)="openEditModal();id=item.id">{{item.CourseName}}</button>
                 <app-modal #Editmodal [modalConfig]="ModalConfigEdit" [CourseId]="id">

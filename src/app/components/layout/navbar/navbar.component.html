@@ -1,8 +1,8 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<section class="navbar-light bg-light p-2">
     <div class="container-fluid">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <div class="d-flex" id="navbarSupportedContent">
+            <ul class="d-flex me-auto mb-2 mb-lg-0 nav-items">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" routerLink="/students" routerLinkActive="activeLink">Students</a>
                 </li>
@@ -10,10 +10,24 @@
                     <a class="nav-link" routerLink="/courses" routerLinkActive="activeLink">Courses</a>
                 </li>
             </ul>
+            <div class="dropdown d-none">
+                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fa fa-bars" aria-hidden="true"></i>
+              </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                    <li>
+                        <a class="nav-link dropdown-item" aria-current="page" routerLink="/students" routerLinkActive="activeLink">Students</a>
+                    </li>
+                    <li>
+                        <a class="nav-link dropdown-item" routerLink="/courses" routerLinkActive="activeLink">Courses</a>
+
+                    </li>
+                </ul>
+            </div>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </div>
     </div>
-</nav>
+</section>

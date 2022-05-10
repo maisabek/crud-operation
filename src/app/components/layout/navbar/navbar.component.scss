@@ -1,5 +1,22 @@
-.activeLink {
-    color: green !important;
-    background: white;
-    //padding: 5px;
-}
+    .activeLink {
+        color: green !important;
+        background: white;
+        //padding: 5px;
+    }
+    
+    ul li {
+        list-style-type: none;
+    }
+    
+    .dropdown-toggle::after {
+        display: none !important;
+    }
+    
+    @media(max-width: 757px) {
+        .dropdown {
+            display: block !important;
+        }
+        .nav-items {
+            display: none !important
+        }
+    }

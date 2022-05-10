@@ -14,6 +14,10 @@ export class StudentsServiceService {
     return this.http.get(`${this.apiUrl}/students`)
   }
 
+  getStudentById(id:any):Observable<any>{
+   return this.http.get(`${this.apiUrl}/students/${id}`)
+  }
+
   add(data:any):Observable<any>{
     return this.http.post(`${this.apiUrl}/students`,data)
   }
