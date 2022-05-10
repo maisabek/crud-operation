@@ -5,10 +5,10 @@
             <div class="w-100">
                 <button class="btn btn-success mt-3" (click)="openModal()">AddStudent</button>
                 <app-modal #modal [modalConfig]="ModalConfig" (data)="itemsValue = $event">
-                    <div class="btn">
+                    <!-- <div class="btn">
                         <button class="btn btn-success" (click)="addStudent();close()">save</button>
                         <button class="btn btn-danger mx-2" (click)="close()">cancel</button>
-                    </div>
+                    </div> -->
                 </app-modal>
             </div>
             <div class=" w-100 mt-3 ">
@@ -24,13 +24,15 @@
                 </div>
             </div>
         </div>
-        <ng-container *ngFor="let item of filterStudents;">
+        <ng-container *ngFor="let item of studentService.filterStudents;">
 
             <div class="col-md-2 card mt-3 ">
                 <img [src]="item.avatar " alt=" ">
-                <button class="text-center mt-2 btn" (click)="openEditModal();id=item.id">{{item.name}}</button>
-
+                <button class="text-center mt-2 btn edit_button" (click)="openEditModal();id=item.id">{{item.name}}</button>
+                <app-modal #Editmodal [modalConfig]="ModalConfigEdit" [ItemId]="id">
+                </app-modal>
                 <button class="btn btn-danger mb-3" (click)="openDialog(delete) ">Delete</button>
+                <input type="hidden" id="hiddenValueId" [value]="item.id">
                 <ng-template #delete>
                     <div class="row ">
                         <div class="col-md-12 ">
@@ -44,14 +46,9 @@
                 </ng-template>
             </div>
         </ng-container>
-        <app-modal #Editmodal [modalConfig]="ModalConfigEdit" (EditData)="itemsEditValue = $event">
-            <div class="btn">
-                <button class="btn btn-success" (click)="EditStudent(id);closeEditModal()">Edit</button>
-                <button class="btn btn-danger mx-2" (click)="closeEditModal()">cancel</button>
-            </div>
-        </app-modal>
+
         <div class="w-100 ">
-            <i class="fa fa-spinner mt-5 text-center text-dark-blue fa-spin fa-2x " *ngIf="isLoading " aria-hidden="true "></i>
+            <i class="fa fa-spinner mt-5 text-center text-dark-blue fa-spin fa-2x " *ngIf="studentService.isLoading" aria-hidden="true "></i>
         </div>
     </div>
 

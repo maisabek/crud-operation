@@ -24,4 +24,14 @@ export class CoursesServiceService {
   delete(id:any):Observable<any>{
     return this.http.delete(`${this.apiUrl}/Courses/${id}`)
   }
+  allCourses:any;
+  isLoading:boolean=true;
+  filterCourses:any
+  getallCourses(){
+    this.getCourses().subscribe((res)=>{
+      this.allCourses=res;
+      this.filterCourses=res;
+      this.isLoading=false
+    })
+   }
 }

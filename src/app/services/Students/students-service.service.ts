@@ -25,4 +25,14 @@ export class StudentsServiceService {
   delete(id:any):Observable<any>{
     return this.http.delete(`${this.apiUrl}/students/${id}`)
   }
+  allStudents:any;
+  isLoading:boolean=true;
+  filterStudents:any
+  getAllStudents(){
+    this.getStudent().subscribe((res)=>{
+      this.allStudents=res;
+      this.filterStudents=res;
+      this.isLoading=false
+    })
+   }
 }

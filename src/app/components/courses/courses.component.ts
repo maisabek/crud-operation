@@ -9,59 +9,62 @@ import { StudentsServiceService } from 'src/app/services/Students/students-servi
   styleUrls: ['./courses.component.scss']
 })
 export class CoursesComponent implements OnInit {
-  allCourses:any;
+
   selectedCourse:any;
   courses:any=["allCourses","html","css","javascript","angular"];
-  isLoading:boolean=true;
-  filterCourses:any
-  constructor(private courseService:CoursesServiceService,private MatDailog:MatDialog) { }
+  // allCourses:any;
+  // isLoading:boolean=true;
+  // filterCourses:any
+  constructor(public courseService:CoursesServiceService,private MatDailog:MatDialog) { }
   itemsValue:any;
   itemsEditValue:any;
   ngOnInit(): void {
-    this.getallCourses()
+    this.courseService.getallCourses()
   }
-  getallCourses(){
-   this.courseService.getCourses().subscribe((res)=>{
-     this.allCourses=res;
-     this.filterCourses=res;
-     this.isLoading=false
-   })
-  }
+  // getallCourses(){
+  //  this.courseService.getCourses().subscribe((res)=>{
+  //    this.allCourses=res;
+  //    this.filterCourses=res;
+  //    this.isLoading=false
+  //  })
+  // }
   deleteStudent(id:any){
    this.courseService.delete(id).subscribe(()=>{
-    this.getallCourses()
+    this.courseService.getallCourses()
    })
   }
-  addCourse(){
-    this.courseService.add(this.itemsValue).subscribe((res)=>{
-      console.log("res =",res)
+  // addCourse(){
+  //   this.courseService.add(this.itemsValue).subscribe((res)=>{
+  //     console.log("res =",res)
 
-      this.getallCourses()
-    })
-  }
-  EditStudent(id:any){
-    console.log("id = ",id)
-   this.courseService.edit(this.itemsValue,id).subscribe((res)=>{
-    console.log("res =",res)
-    this.getallCourses()
-   })
-  }
- 
+  //     this.getallCourses()
+  //   })
+  // }
+  // EditStudent(id:any){
+  //   console.log("id = ",id)
+  //  this.courseService.edit(this.itemsValue,id).subscribe((res)=>{
+  //   console.log("res =",res)
+  //   this.courseService.getallCourses()
+  //  })
+  // }
+
   openDialog(templateRef:TemplateRef<any>){
     this.MatDailog.open(templateRef)
    }
    closeDailog(){
      this.MatDailog.closeAll()
    }
-  
+
    ModalConfig={
     modal:'Courses',
+    type:"addCourse",
     modalTitle: "add Course",
     dismissButtonLabel: "cancel",
     closeButtonLabel: "close"
 }
 ModalConfigEdit={
   modal:'Courses',
+  type:"EditCourse",
   modalTitle: "Edit Course",
   dismissButtonLabel: "cancel",
   closeButtonLabel: "close"
@@ -86,9 +89,9 @@ closeEditModal() {
 
 updatestudentsByCourses(){
   if(this.selectedCourse == 'allCourses'){
-    this.filterCourses=this.allCourses
+    this.courseService.filterCourses=this.courseService.allCourses
   }else{
-  this.filterCourses = this.allCourses.filter((item:any) =>
+  this.courseService.filterCourses = this.courseService.allCourses.filter((item:any) =>
     item.CourseName + '' === this.selectedCourse + ''
   );
   }

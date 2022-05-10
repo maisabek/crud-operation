@@ -5,10 +5,7 @@
             <div class="w-100">
                 <button class="btn btn-success mt-3" (click)="openModal()">AddCourse</button>
                 <app-modal #modal [modalConfig]="ModalConfig" (data)="itemsValue = $event">
-                    <div class="btn">
-                        <button class="btn btn-success" (click)="addCourse();close()">save</button>
-                        <button class="btn btn-danger mx-2" (click)="close()">cancel</button>
-                    </div>
+
                 </app-modal>
             </div>
             <div class=" w-100 mt-3 ">
@@ -24,12 +21,13 @@
                 </div>
             </div>
         </div>
-        <ng-container *ngFor="let item of filterCourses;">
+        <ng-container *ngFor="let item of courseService.filterCourses;">
 
             <div class="col-md-2 card mt-3 ">
                 <img src="assets/img/1.jpg" alt=" ">
                 <button class="text-center mt-2 btn h-25" (click)="openEditModal();id=item.id">{{item.CourseName}}</button>
-
+                <app-modal #Editmodal [modalConfig]="ModalConfigEdit" [CourseId]="id">
+                </app-modal>
                 <button class="btn btn-danger mb-3" (click)="openDialog(delete)">Delete</button>
                 <ng-template #delete>
                     <div class="row ">
@@ -44,14 +42,9 @@
                 </ng-template>
             </div>
         </ng-container>
-        <app-modal #Editmodal [modalConfig]="ModalConfigEdit" (EditData)="itemsEditValue = $event">
-            <div class="btn">
-                <button class="btn btn-success" (click)="EditStudent(id);closeEditModal()">Edit</button>
-                <button class="btn btn-danger mx-2" (click)="closeEditModal()">cancel</button>
-            </div>
-        </app-modal>
+
         <div class="w-100 ">
-            <i class="fa fa-spinner mt-5 text-center text-dark-blue fa-spin fa-2x " *ngIf="isLoading " aria-hidden="true "></i>
+            <i class="fa fa-spinner mt-5 text-center text-dark-blue fa-spin fa-2x " *ngIf="courseService.isLoading" aria-hidden="true "></i>
         </div>
     </div>
 
