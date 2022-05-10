@@ -47,6 +47,9 @@
         <div class="w-100 ">
             <i class="fa fa-spinner mt-5 text-center text-dark-blue fa-spin fa-2x " *ngIf="studentService.isLoading" aria-hidden="true "></i>
         </div>
+        <ng-container *ngIf="studentService.filterStudents.length == 0">
+            <p class="text-center mt-5 h3">Not Found</p>
+        </ng-container>
     </div>
 
 </div>

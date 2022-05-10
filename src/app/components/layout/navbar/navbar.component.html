@@ -26,7 +26,7 @@
             </div>
             <form class="d-flex">
                 <input class="form-control mx-1" type="search" [(ngModel)]="filterValue" name="filterValue" placeholder="Search by Course" aria-label="Search">
-                <button class="btn btn-outline-success btn-sm" type="button" (click)="filter()">Search</button>
+                <button class="btn btn-outline-success btn-sm" type="button" [disabled]="filterValue == null" (click)="filter()">Search</button>
             </form>
         </div>
     </div>
